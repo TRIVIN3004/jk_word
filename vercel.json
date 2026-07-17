@@ -1,4 +1,5 @@
 {
-  "buildCommand": "cd client && npm run build",
+  "buildCommand": "cd client && npm install --legacy-peer-deps && npm run build",
   "outputDirectory": "client/.next"
 }
+
