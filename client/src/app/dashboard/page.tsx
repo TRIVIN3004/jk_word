@@ -576,6 +576,9 @@ export default function DashboardPage() {
         </div>
 
       </main>
+      <footer className="w-full py-6 text-center text-xs text-slate-500 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700/80 transition-colors select-none">
+        Developed by <span className="font-semibold text-slate-700 dark:text-slate-200">Trivin Nexora Technologies</span>
+      </footer>
     </div>
   );
 }

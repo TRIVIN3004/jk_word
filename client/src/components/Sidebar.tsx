@@ -328,6 +328,9 @@ export default function Sidebar({ onChaptersRefresh, chaptersList }: SidebarProp
               </button>
             )}
           </div>
+          <div className="p-3 border-t border-[var(--border-color)]/15 text-center text-[10px] text-[var(--text-sidebar-muted)]/70 shrink-0 select-none">
+            Developed by <span className="font-semibold text-[var(--text-sidebar-main)]">Trivin Nexora Technologies</span>
+          </div>
         </>
       ) : (
         /* Collapsed Sidebar */

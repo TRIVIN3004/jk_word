@@ -107,8 +107,9 @@ export default function LoginPage() {
 
         </div>
 
-        <div className="text-center text-xs text-slate-500">
-          Secure, audit-ready version history enabled. All actions are logged.
+        <div className="text-center text-xs text-slate-500 space-y-1">
+          <p>Secure, audit-ready version history enabled. All actions are logged.</p>
+          <p>Developed by <span className="font-semibold text-slate-400">Trivin Nexora Technologies</span></p>
         </div>
       </div>
     </div>
