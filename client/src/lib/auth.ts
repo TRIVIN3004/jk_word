@@ -46,9 +46,9 @@ export function requireEditor(user: JwtUser) {
 
 /** Wrap a route handler with auth error handling */
 export function withAuth(
-  handler: (req: NextRequest, user: JwtUser, context?: any) => Promise<NextResponse>
+  handler: (req: NextRequest, user: JwtUser, context?: any) => Promise<Response>
 ) {
-  return async (req: NextRequest, context?: any) => {
+  return async (req: NextRequest, context?: any): Promise<Response> => {
     try {
       const user = getUser(req);
       return await handler(req, user, context);

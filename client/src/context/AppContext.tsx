@@ -23,7 +23,7 @@ interface AppContextType {
   toggleFavorite: (chapterId: string) => void;
   recentPages: string[];
   addRecentPage: (chapterId: string) => void;
-  login: (email: string, role?: UserRole) => Promise<boolean>;
+  login: (email: string, password?: string) => Promise<boolean>;
   logout: () => void;
   apiUrl: string;
   fetchWithAuth: (endpoint: string, options?: any) => Promise<any>;
@@ -39,7 +39,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [recentPages, setRecentPages] = useState<string[]>([]);
   const router = useRouter();
 
-  const apiUrl = 'http://localhost:5000/api';
+  const apiUrl = '/api';
 
   // Load from local storage
   useEffect(() => {
@@ -104,19 +104,13 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('docx_recents', JSON.stringify(updated));
   };
 
-  // Simplified login helper that logs in with the Express API
-  const login = async (email: string, selectedRole?: UserRole) => {
+  // Login helper that logs in with the API
+  const login = async (email: string, password?: string) => {
     try {
-      // Mock log in locally if server is not fully online, or use real fetch
-      // For a seamless test experience, we have quick logins for Admin, Editor, Viewer
-      let password = 'viewer123';
-      if (selectedRole === 'Admin') password = 'admin123';
-      if (selectedRole === 'Editor') password = 'editor123';
-
       const res = await fetch(`${apiUrl}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password: password || '123456' })
       });
 
       if (!res.ok) {
@@ -133,23 +127,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
       router.push('/dashboard');
       return true;
-    } catch (err) {
+    } catch (err: any) {
       console.error("Login failure:", err);
-      // Fallback mock login if server connection fails (keeps frontend work testable)
-      const mockUser: User = {
-        id: `mock-${Date.now()}`,
-        name: selectedRole ? `${selectedRole} User` : 'Viewer User',
-        email,
-        role: selectedRole || 'Viewer'
-      };
-      const mockToken = 'mock-jwt-token-key-12345';
-      
-      setToken(mockToken);
-      setUser(mockUser);
-      localStorage.setItem('docx_token', mockToken);
-      localStorage.setItem('docx_user', JSON.stringify(mockUser));
-      router.push('/dashboard');
-      return true;
+      throw err;
     }
   };
 

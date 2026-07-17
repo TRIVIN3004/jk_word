@@ -1,0 +1,29 @@
+# dependencies
+node_modules/
+/node_modules
+/server/node_modules
+/client/node_modules
+
+# env files (secrets)
+.env
+.env*
+!.env.example
+
+# vercel
+.vercel
+
+# next.js
+.next/
+out/
+
+# production / build
+build/
+dist/
+
+# misc / logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+*.tsbuildinfo
+.DS_Store
